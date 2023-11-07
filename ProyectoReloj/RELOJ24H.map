@@ -1,0 +1,212 @@
+MPLINK 4.48, Linker
+Linker Map File - Created Thu Jun 15 19:03:25 2023
+
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+                   .org_0       code   0x000000    program   0x000000
+                   .org_1       code   0x000000    program   0x000002
+                   .org_3       code   0x000004    program   0x000002
+                   .org_2       code   0x000010    program   0x000470
+                   .org_4       code   0x000267    program   0x0000c6
+
+
+
+                              Program Memory Usage 
+                               Start         End      
+                           ---------   ---------      
+                            0x000000    0x000000      
+                            0x000004    0x000004      
+                            0x000010    0x000247      
+                            0x000267    0x0002c9      
+            669 out of 1094 program addresses used, program memory utilization is 61%
+
+
+
+                              Symbols - Sorted by Name
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                  ALFREDO   0x000093    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                 ALFREDOZ   0x0001ad    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                      CDU   0x0001f5    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                     CDU2   0x000223    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                     CDU3   0x00020c    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                     CDU4   0x000239    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                    CHINA   0x000195    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                   CLRCRO   0x000149    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                   CLRSEG   0x0000fd    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                    CMCRM   0x000138    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                     CMCS   0x000135    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                     CMFH   0x0000be    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                     CMFS   0x0000c1    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                     CMHF   0x000066    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                     CMHS   0x000069    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                    CMRMC   0x00019b    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                     CMSC   0x0000f5    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                     CMSF   0x0000f8    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                     CMSH   0x0000f2    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                  COMPINI   0x00012b    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                  COMPMOD   0x0000ef    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                    CROFF   0x000131    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                     CRON   0x000133    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                   CRONOM   0x000105    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                  CRONOM2   0x000116    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                  CRONOMI   0x000103    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                   DANIEL   0x0002be    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                      DIA   0x0000c4    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                    DIA28   0x0001ec    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                    DIA30   0x0001e8    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                    DIA31   0x0001ea    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                    FECHA   0x000098    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                   FECHA2   0x0000a9    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                   FECHAI   0x000096    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                 GABRIELA   0x00006e    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                     GIAN   0x0002b4    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                    HORAS   0x000081    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                    HORAZ   0x00019e    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                     IMPH   0x00017d    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                     INC0   0x0001b7    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                     INC1   0x0001db    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                   INCCRO   0x000271    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                   INCDIA   0x0001b2    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                 INCDIA28   0x000205    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                 INCDIA30   0x0001ee    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                 INCDIA31   0x00021c    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                   INCMES   0x000233    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                   INICIO   0x000010    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                    INTER   0x000267    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                  LONDRES   0x000198    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                   MADRID   0x000192    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+               MARIAPAOLA   0x00008a    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+              MARIAPAOLAZ   0x0001a4    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                      MES   0x0000c9    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                  MINUTOS   0x000071    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                       N1   0x000023    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                      N10   0x000112    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                      N11   0x0000e0    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                       N2   0x0002c7    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                      N21   0x00016d    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                       N3   0x00026a    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                       N4   0x00028d    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                       N5   0x00026c    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                       N8   0x00004c    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                       N9   0x0000a5    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                      OFF   0x000294    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                  PASODIA   0x0002c1    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                  PASOMES   0x0002c5    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                      PDD   0x000202    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                     PDD2   0x000230    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                     PDD3   0x000219    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                     PDD4   0x000245    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                  REJMUNI   0x000154    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                   RELMUN   0x000157    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                      RET   0x0001e7    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                  RETARDO   0x00006c    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                    RETUR   0x00013b    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                   RETUR2   0x000142    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                     RETZ   0x0001af    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                   SAMUEL   0x000040    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                  SAMUELI   0x00003e    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                   SANDRO   0x000051    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                      SEG   0x000290    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                     SEG1   0x000295    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                   SEGCRO   0x000274    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                    SEGUI   0x0000ce    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                    SEGUN   0x0000d1    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                   SEGUN2   0x0000e4    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+
+
+
+                              Symbols - Sorted by Address
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                   INICIO   0x000010    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                       N1   0x000023    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                  SAMUELI   0x00003e    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                   SAMUEL   0x000040    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                       N8   0x00004c    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                   SANDRO   0x000051    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                     CMHF   0x000066    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                     CMHS   0x000069    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                  RETARDO   0x00006c    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                 GABRIELA   0x00006e    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                  MINUTOS   0x000071    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                    HORAS   0x000081    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+               MARIAPAOLA   0x00008a    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                  ALFREDO   0x000093    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                   FECHAI   0x000096    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                    FECHA   0x000098    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                       N9   0x0000a5    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                   FECHA2   0x0000a9    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                     CMFH   0x0000be    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                     CMFS   0x0000c1    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                      DIA   0x0000c4    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                      MES   0x0000c9    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                    SEGUI   0x0000ce    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                    SEGUN   0x0000d1    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                      N11   0x0000e0    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                   SEGUN2   0x0000e4    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                  COMPMOD   0x0000ef    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                     CMSH   0x0000f2    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                     CMSC   0x0000f5    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                     CMSF   0x0000f8    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                   CLRSEG   0x0000fd    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                  CRONOMI   0x000103    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                   CRONOM   0x000105    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                      N10   0x000112    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                  CRONOM2   0x000116    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                  COMPINI   0x00012b    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                    CROFF   0x000131    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                     CRON   0x000133    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                     CMCS   0x000135    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                    CMCRM   0x000138    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                    RETUR   0x00013b    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                   RETUR2   0x000142    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                   CLRCRO   0x000149    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                  REJMUNI   0x000154    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                   RELMUN   0x000157    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                      N21   0x00016d    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                     IMPH   0x00017d    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                   MADRID   0x000192    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                    CHINA   0x000195    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                  LONDRES   0x000198    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                    CMRMC   0x00019b    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                    HORAZ   0x00019e    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+              MARIAPAOLAZ   0x0001a4    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                 ALFREDOZ   0x0001ad    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                     RETZ   0x0001af    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                   INCDIA   0x0001b2    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                     INC0   0x0001b7    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                     INC1   0x0001db    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                      RET   0x0001e7    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                    DIA30   0x0001e8    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                    DIA31   0x0001ea    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                    DIA28   0x0001ec    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                 INCDIA30   0x0001ee    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                      CDU   0x0001f5    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                      PDD   0x000202    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                 INCDIA28   0x000205    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                     CDU3   0x00020c    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                     PDD3   0x000219    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                 INCDIA31   0x00021c    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                     CDU2   0x000223    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                     PDD2   0x000230    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                   INCMES   0x000233    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                     CDU4   0x000239    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                     PDD4   0x000245    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                    INTER   0x000267    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                       N3   0x00026a    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                       N5   0x00026c    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                   INCCRO   0x000271    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                   SEGCRO   0x000274    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                       N4   0x00028d    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                      SEG   0x000290    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                      OFF   0x000294    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                     SEG1   0x000295    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                     GIAN   0x0002b4    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                   DANIEL   0x0002be    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                  PASODIA   0x0002c1    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                  PASOMES   0x0002c5    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+                       N2   0x0002c7    program     static C:\Users\Samuel\Documents\ProyectosPIC\ProyectoReloj\RELOJ24H.ASM
+
+

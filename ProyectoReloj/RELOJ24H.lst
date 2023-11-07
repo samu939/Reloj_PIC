@@ -1,0 +1,1092 @@
+MPASM  5.50                      RELOJ24H.ASM   6-15-2023  19:03:24         PAGE  1
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00001         LIST P=16F84
+                      00002 
+  00000001            00003 OP      EQU     01H     ;DECLARACION DEL REGISTRO OPCION
+  00000001            00004 TMR0    EQU     01H     ;DECLARACION DEL TIMER 0        
+  0000000B            00005 INTCON  EQU     0BH     ;DECLARACION DEL REGSITRO INTCON
+  00000005            00006 TRISA   EQU     05H     ;DECLARACION DEL REGISTRO TRISA (CONFIGURACION DEL PUERTO A)
+  00000005            00007 PA      EQU     05H     ;DECLARACION DEL PUERTO A
+  00000003            00008 STATUS  EQU     03H     ;DECLARACION DEL REGSITRO STATUS
+  00000010            00009 VAR     EQU     10H     ;DECLARACION DEL REGISTRO VAR (UTILIZADO COMO CONTADOR) 
+  00000006            00010 PB              EQU             06H
+  00000006            00011 TRISB   EQU             06H
+  00000011            00012 SEGUNI  EQU             11H
+  00000012            00013 SEGDEC  EQU             12H
+  00000013            00014 MINUNI  EQU             13H
+  00000014            00015 MINDEC  EQU             14H
+  00000015            00016 HORUNI  EQU             15H
+  00000016            00017 HORDEC  EQU             16H
+  00000017            00018 ANDRES  EQU             17H
+  00000018            00019 JOYCE   EQU             18H
+  00000019            00020 NICOLA  EQU             19H
+  00000020            00021 MODO    EQU             20H
+  00000021            00022 CONTROL EQU             21H
+  00000022            00023 DIAUNI  EQU             22H
+  00000023            00024 DIADEC  EQU             23H
+  00000024            00025 MESUNI  EQU             24H
+  00000025            00026 MESDEC  EQU             25H
+  00000026            00027 CAMBIO  EQU             26H
+  00000027            00028 VARCRO  EQU             27H
+  00000028            00029 INICRO  EQU             28H
+  00000029            00030 SUNICR  EQU             29H
+  00000030            00031 SDECCR  EQU             30H
+  00000031            00032 MUNICR  EQU             31H
+  00000032            00033 MDECCR  EQU             32H
+  00000033            00034 CONTROL2 EQU    33H
+  00000034            00035 CONTROL3 EQU    34H
+  00000035            00036 MINUNIZ EQU             35H
+  00000036            00037 MINDECZ EQU             36H
+  00000037            00038 HORUNIZ EQU             37H
+  00000038            00039 HORDECZ EQU             38H
+  00000039            00040 ZONAH   EQU             39H
+  00000040            00041 CONTZ   EQU             40H
+                      00042 
+                      00043 
+                      00044 
+0000                  00045         ORG     0       ;VECTOR DE INTERRUPCION DEL RESET
+0000   2810           00046         GOTO    INICIO  ;SALTO A INICIO DEL PROGRAMA
+                      00047 
+0010                  00048 INICIO  ORG     10
+0010   1683           00049         BSF     STATUS,5        ;CAMBIO DE BANCO DE MEMORIA (BANCO 1)
+0011   0185           00050         CLRF    TRISA           ;
+0012   1405           00051                 BSF             TRISA,0
+0013   1485           00052                 BSF             TRISA,1
+0014   1585           00053                 BSF             TRISA,3
+MPASM  5.50                      RELOJ24H.ASM   6-15-2023  19:03:24         PAGE  2
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0015   1605           00054                 BSF             TRISA,4
+0016   0186           00055                 CLRF    TRISB
+0017   3007           00056                 MOVLW   B'00000111'     ;MOVIENDO EL VALOR DE 00000111 A W
+0018   0081           00057         MOVWF   OP                      ;ASIGNADO EL DIVISOR A 256, ASIGNADO AL TIMER, UTILIZANDO LA SEN
+                            AL INTERNA DEL MICROCONTROLADOR
+0019   1283           00058         BCF     STATUS,5        ;CAMBIO DE BANCO DE MEMORIA (BANCO 0)
+                      00059 
+001A   30A0           00060         MOVLW   B'10100000'     ;MOVIENDO EL VALOR DE 10100000 A W
+001B   008B           00061         MOVWF   INTCON          ;HABILITANDO LAS INTERRUPCIONES Y DANDO PERMISO A LA INTERRUPCION DEL TI
+                            MER
+                      00062 
+001C   30D9           00063         MOVLW   d'217'          ;MOVIENDO EL VALOR DE 217 A W
+001D   0081           00064         MOVWF   TMR0            ;PRECARGANDO EL TIMER EN 217
+001E   3064           00065         MOVLW   D'100'          ;MOVIENDO EL VALOR DE 100 A W
+001F   0090           00066         MOVWF   VAR                     ;CARGANDO EN LA VARIABLE DE CONTEO EL VALOR DE 100
+0020   3064           00067                 MOVLW   D'100'          ;MOVIENDO EL VALOR DE 100 A W
+0021   00A7           00068         MOVWF   VARCRO  
+0022   0186           00069                 CLRF    PB
+                      00070                 
+0023   01B6           00071 N1              CLRF    MINDECZ
+0024   01B5           00072                 CLRF    MINUNIZ
+0025   01B7           00073                 CLRF    HORUNIZ
+0026   01B8           00074                 CLRF    HORDECZ
+0027   01B9           00075                 CLRF    ZONAH
+0028   01A9           00076                 CLRF    SUNICR
+0029   01B0           00077                 CLRF    SDECCR
+002A   01B1           00078                 CLRF    MUNICR
+002B   01B2           00079                 CLRF    MDECCR
+002C   0191           00080                 CLRF    SEGUNI
+002D   0192           00081                 CLRF    SEGDEC
+002E   0194           00082                 CLRF    MINDEC
+002F   0193           00083                 CLRF    MINUNI
+0030   0195           00084                 CLRF    HORUNI
+0031   01A8           00085                 CLRF    INICRO
+0032   01A2           00086                 CLRF    DIAUNI
+0033   01A3           00087                 CLRF    DIADEC
+0034   01A5           00088                 CLRF    MESDEC
+0035   01A4           00089                 CLRF    MESUNI
+0036   0AA4           00090                 INCF    MESUNI,1
+0037   0AA2           00091                 INCF    DIAUNI,1                
+0038   01A1           00092                 CLRF    CONTROL
+0039   01B3           00093                 CLRF    CONTROL2
+003A   01A0           00094                 CLRF    MODO
+003B   01A6           00095                 CLRF    CAMBIO
+003C   0196           00096                 CLRF    HORDEC
+003D   0199           00097                 CLRF    NICOLA
+                      00098 
+003E   1021           00099 SAMUELI BCF             CONTROL,0
+003F   1033           00100                 BCF             CONTROL2,0
+                      00101                 
+0040                  00102 SAMUEL  
+0040   1C05           00103                 BTFSS   PA,0            ;VALIDO SI QUIERE AJUSTA MINUTOS
+0041   2871           00104                 GOTO    MINUTOS         ;AJUSTAR MINUTOS
+MPASM  5.50                      RELOJ24H.ASM   6-15-2023  19:03:24         PAGE  3
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0042   1C85           00105                 BTFSS   PA,1            ;VALIDO SI QUIERE AJUSTAR HORAS
+0043   2881           00106                 GOTO    HORAS
+0044   1D85           00107                 BTFSS   PA,3
+0045   1433           00108                 BSF             CONTROL2,0
+0046   1E05           00109                 BTFSS   PA,4
+0047   1421           00110                 BSF             CONTROL,0
+0048   1821           00111                 BTFSC   CONTROL,0
+0049   2866           00112                 GOTO    CMHF
+004A   1833           00113                 BTFSC   CONTROL2,0
+004B   2869           00114                 GOTO    CMHS
+004C   1820           00115 N8              BTFSC   MODO,0  
+004D   2896           00116                 GOTO    FECHAI
+004E   18A0           00117                 BTFSC   MODO,1  
+004F   28CE           00118                 GOTO    SEGUI   ;CAMBIAR POR LA FUNCION INICIAL DE VER SEGUNDOS 
+0050   1019           00119                 BCF             NICOLA,0
+0051   0813           00120 SANDRO  MOVF    MINUNI,0
+0052   0086           00121                 MOVWF   PB
+0053   1786           00122                 BSF             PB,7
+0054   206C           00123                 CALL    RETARDO
+0055   1386           00124                 BCF             PB,7
+0056   0814           00125                 MOVF    MINDEC,0
+0057   0086           00126                 MOVWF   PB
+0058   1706           00127                 BSF             PB,6
+0059   206C           00128                 CALL    RETARDO
+005A   1306           00129                 BCF             PB,6
+005B   0815           00130                 MOVF    HORUNI,0
+005C   0086           00131                 MOVWF   PB
+005D   1686           00132                 BSF             PB,5
+005E   206C           00133                 CALL    RETARDO
+005F   1286           00134                 BCF             PB,5
+0060   0816           00135                 MOVF    HORDEC,0
+0061   0086           00136                 MOVWF   PB
+0062   1606           00137                 BSF             PB,4
+0063   206C           00138                 CALL    RETARDO
+0064   1206           00139                 BCF             PB,4
+0065   2840           00140                 GOTO    SAMUEL                  ;SALTA A LA ETIQUETA N1
+                      00141 
+0066   1A05           00142 CMHF    BTFSC   PA,4
+0067   0AA0           00143                 INCF    MODO,1
+0068   284C           00144                 GOTO    N8
+                      00145 
+0069   1985           00146 CMHS    BTFSC   PA,3
+006A   14A0           00147                 BSF             MODO,1
+006B   284C           00148                 GOTO    N8
+                      00149 
+                      00150 
+                      00151 
+                      00152 
+006C   30FF           00153 RETARDO         MOVLW   D'255'
+006D   0097           00154                         MOVWF   ANDRES
+006E   0B97           00155 GABRIELA        DECFSZ  ANDRES,1
+006F   286E           00156                         GOTO    GABRIELA
+0070   0008           00157                 RETURN
+MPASM  5.50                      RELOJ24H.ASM   6-15-2023  19:03:24         PAGE  4
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00158 
+0071   1819           00159 MINUTOS         BTFSC   NICOLA,0
+0072   2851           00160                         GOTO    SANDRO
+0073   1419           00161                         BSF             NICOLA,0
+0074   0A93           00162                         INCF    MINUNI,1
+0075   0813           00163                         MOVF    MINUNI,0
+0076   3C0A           00164                         SUBLW   D'10'
+0077   1D03           00165                         BTFSS   STATUS,2
+0078   2851           00166                         GOTO    SANDRO
+0079   0193           00167                         CLRF    MINUNI
+007A   0A94           00168                         INCF    MINDEC,1
+007B   0814           00169                         MOVF    MINDEC,0
+007C   3C06           00170                         SUBLW   D'6'
+007D   1D03           00171                         BTFSS   STATUS,2
+007E   2851           00172                         GOTO    SANDRO
+007F   0194           00173                         CLRF    MINDEC
+0080   2851           00174                         GOTO    SANDRO
+                      00175 
+0081   1819           00176 HORAS           BTFSC   NICOLA,0
+0082   2851           00177                         GOTO    SANDRO
+0083   1419           00178                         BSF             NICOLA,0
+0084   0A95           00179                         INCF    HORUNI,1        
+0085   0815           00180                         MOVF    HORUNI,0
+0086   3C0A           00181                         SUBLW   D'10'
+0087   1D03           00182                         BTFSS   STATUS,2
+0088   288A           00183                         GOTO    MARIAPAOLA
+0089   2893           00184                         GOTO    ALFREDO
+008A   0815           00185 MARIAPAOLA      MOVF    HORUNI,0
+008B   3C04           00186                         SUBLW   D'4'
+008C   1D03           00187                         BTFSS   STATUS,2
+008D   2851           00188                         GOTO    SANDRO
+008E   1C96           00189                         BTFSS   HORDEC,1
+008F   2851           00190                         GOTO    SANDRO
+0090   0196           00191                         CLRF    HORDEC
+0091   0195           00192                         CLRF    HORUNI
+0092   2851           00193                         GOTO    SANDRO                          
+0093   0195           00194 ALFREDO         CLRF    HORUNI
+0094   0A96           00195                         INCF    HORDEC,1
+0095   2851           00196                         GOTO    SANDRO
+                      00197 
+                      00198 
+                      00199 
+0096   1021           00200 FECHAI  BCF             CONTROL,0
+0097   1033           00201                 BCF             CONTROL2,0
+                      00202 
+                      00203 
+0098   1C05           00204 FECHA   BTFSS   PA,0            ;VALIDO SI QUIERE AJUSTA DIA
+0099   28C4           00205                 GOTO    DIA     
+009A   1C85           00206                 BTFSS   PA,1            ;VALIDO SI QUIERE AJUSTA MES
+009B   28C9           00207                 GOTO    MES     
+009C   1019           00208                 BCF             NICOLA,0
+009D   1D85           00209                 BTFSS   PA,3
+009E   1433           00210                 BSF             CONTROL2,0
+MPASM  5.50                      RELOJ24H.ASM   6-15-2023  19:03:24         PAGE  5
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+009F   1E05           00211                 BTFSS   PA,4
+00A0   1421           00212                 BSF             CONTROL,0
+00A1   1821           00213                 BTFSC   CONTROL,0
+00A2   28BE           00214                 GOTO    CMFH
+00A3   1833           00215                 BTFSC   CONTROL2,0
+00A4   28C1           00216                 GOTO    CMFS
+00A5   1C20           00217 N9              BTFSS   MODO,0  
+00A6   283E           00218                 GOTO    SAMUELI
+00A7   18A0           00219                 BTFSC   MODO,1  
+00A8   2903           00220                 GOTO    CRONOMI ;CAMBIAR POR LA FUNCION INICIAL DE VER SEGUNDOS
+00A9   0824           00221 FECHA2  MOVF    MESUNI,0
+00AA   0086           00222                 MOVWF   PB
+00AB   1786           00223                 BSF             PB,7
+00AC   206C           00224                 CALL    RETARDO
+00AD   1386           00225                 BCF             PB,7
+00AE   0825           00226                 MOVF    MESDEC,0
+00AF   0086           00227                 MOVWF   PB
+00B0   1706           00228                 BSF             PB,6
+00B1   206C           00229                 CALL    RETARDO
+00B2   1306           00230                 BCF             PB,6
+00B3   0822           00231                 MOVF    DIAUNI,0
+00B4   0086           00232                 MOVWF   PB
+00B5   1686           00233                 BSF             PB,5
+00B6   206C           00234                 CALL    RETARDO
+00B7   1286           00235                 BCF             PB,5
+00B8   0823           00236                 MOVF    DIADEC,0
+00B9   0086           00237                 MOVWF   PB
+00BA   1606           00238                 BSF             PB,4
+00BB   206C           00239                 CALL    RETARDO
+00BC   1206           00240                 BCF             PB,4
+00BD   2898           00241                 GOTO    FECHA   
+                      00242         
+00BE   1A05           00243 CMFH    BTFSC   PA,4
+00BF   03A0           00244                 DECF    MODO,1
+00C0   28A5           00245                 GOTO    N9
+00C1   1985           00246 CMFS    BTFSC   PA,3
+00C2   0AA0           00247                 INCF    MODO,1
+00C3   28A5           00248                 GOTO    N9
+                      00249 
+                      00250 
+00C4   1819           00251 DIA                     BTFSC   NICOLA,0
+00C5   28A9           00252                         GOTO    FECHA2
+00C6   1419           00253                         BSF             NICOLA,0
+00C7   21B2           00254                         CALL    INCDIA
+00C8   28A9           00255                         GOTO    FECHA2
+                      00256 
+00C9   1819           00257 MES                     BTFSC   NICOLA,0
+00CA   28A9           00258                         GOTO    FECHA2
+00CB   1419           00259                         BSF             NICOLA,0
+00CC   2233           00260                         CALL    INCMES
+00CD   28A9           00261                         GOTO    FECHA2
+                      00262 
+                      00263 
+MPASM  5.50                      RELOJ24H.ASM   6-15-2023  19:03:24         PAGE  6
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+00CE   1033           00264 SEGUI   BCF             CONTROL2,0
+00CF   1021           00265                 BCF             CONTROL,0
+00D0   1034           00266                 BCF             CONTROL3,0
+                      00267 
+00D1   1C05           00268 SEGUN   BTFSS   PA,0            
+00D2   28FD           00269                 GOTO    CLRSEG
+00D3   1019           00270                 BCF             NICOLA,0
+00D4   1C85           00271                 BTFSS   PA,1
+00D5   1434           00272                 BSF             CONTROL3,0
+00D6   1E05           00273                 BTFSS   PA,4
+00D7   1421           00274                 BSF             CONTROL,0
+00D8   1D85           00275                 BTFSS   PA,3
+00D9   1433           00276                 BSF             CONTROL2,0
+00DA   1833           00277                 BTFSC   CONTROL2,0
+00DB   28F2           00278                 GOTO    CMSH
+00DC   1821           00279                 BTFSC   CONTROL,0
+00DD   28F8           00280                 GOTO    CMSF
+00DE   1834           00281                 BTFSC   CONTROL3,0
+00DF   28F5           00282                 GOTO    CMSC
+00E0   1CA0           00283 N11             BTFSS   MODO,1  
+00E1   28EF           00284                 GOTO    COMPMOD
+00E2   1820           00285                 BTFSC   MODO,0
+00E3   2903           00286                 GOTO    CRONOMI
+00E4   0811           00287 SEGUN2  MOVF    SEGUNI,0
+00E5   0086           00288                 MOVWF   PB
+00E6   1786           00289                 BSF             PB,7
+00E7   206C           00290                 CALL    RETARDO
+00E8   1386           00291                 BCF             PB,7
+00E9   0812           00292                 MOVF    SEGDEC,0
+00EA   0086           00293                 MOVWF   PB
+00EB   1706           00294                 BSF             PB,6
+00EC   206C           00295                 CALL    RETARDO
+00ED   1306           00296                 BCF             PB,6
+00EE   28D1           00297                 GOTO    SEGUN
+                      00298 
+00EF   1C20           00299 COMPMOD BTFSS   MODO,0
+00F0   283E           00300                 GOTO    SAMUELI
+00F1   2896           00301                 GOTO    FECHAI
+                      00302         
+00F2   1985           00303 CMSH    BTFSC   PA,3
+00F3   01A0           00304                 CLRF    MODO
+00F4   28E0           00305                 GOTO    N11
+                      00306 
+00F5   1885           00307 CMSC    BTFSC   PA,1
+00F6   0AA0           00308                 INCF    MODO,1
+00F7   28E0           00309                 GOTO    N11
+                      00310 
+00F8   1A05           00311 CMSF    BTFSC   PA,4
+00F9   01A0           00312                 CLRF    MODO
+00FA   1A05           00313                 BTFSC   PA,4
+00FB   1420           00314                 BSF             MODO,0
+00FC   28E0           00315                 GOTO    N11
+                      00316 
+MPASM  5.50                      RELOJ24H.ASM   6-15-2023  19:03:24         PAGE  7
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+00FD   1819           00317 CLRSEG  BTFSC   NICOLA,0
+00FE   28E4           00318                 GOTO    SEGUN2
+00FF   1419           00319                 BSF             NICOLA,0
+0100   0191           00320                 CLRF    SEGUNI
+0101   0192           00321                 CLRF    SEGDEC
+0102   28E4           00322                 GOTO    SEGUN2
+                      00323 
+                      00324 
+                      00325 
+                      00326 
+0103   1034           00327 CRONOMI BCF             CONTROL3,0
+0104   1021           00328                 BCF             CONTROL,0
+                      00329 
+0105   1C05           00330 CRONOM  BTFSS   PA,0            
+0106   292B           00331                 GOTO    COMPINI                 
+0107   1D85           00332                 BTFSS   PA,3
+0108   2949           00333                 GOTO    CLRCRO
+0109   1019           00334                 BCF             NICOLA,0
+010A   1E05           00335                 BTFSS   PA,4
+010B   1421           00336                 BSF             CONTROL,0
+010C   1C85           00337                 BTFSS   PA,1
+010D   1434           00338                 BSF             CONTROL3,0
+010E   1834           00339                 BTFSC   CONTROL3,0
+010F   2935           00340                 GOTO    CMCS
+0110   1821           00341                 BTFSC   CONTROL,0
+0111   2938           00342                 GOTO    CMCRM
+0112   1920           00343 N10             BTFSC   MODO,2  
+0113   2954           00344                 GOTO    REJMUNI
+0114   1C20           00345                 BTFSS   MODO,0  
+0115   28CE           00346                 GOTO    SEGUI
+                      00347                 
+0116   0829           00348 CRONOM2 MOVF    SUNICR,0
+0117   0086           00349                 MOVWF   PB
+0118   1786           00350                 BSF             PB,7
+0119   206C           00351                 CALL    RETARDO
+011A   1386           00352                 BCF             PB,7
+011B   0830           00353                 MOVF    SDECCR,0
+011C   0086           00354                 MOVWF   PB
+011D   1706           00355                 BSF             PB,6
+011E   206C           00356                 CALL    RETARDO
+011F   1306           00357                 BCF             PB,6
+0120   0831           00358                 MOVF    MUNICR,0
+0121   0086           00359                 MOVWF   PB
+0122   1686           00360                 BSF             PB,5
+0123   206C           00361                 CALL    RETARDO
+0124   1286           00362                 BCF             PB,5
+0125   0832           00363                 MOVF    MDECCR,0
+0126   0086           00364                 MOVWF   PB
+0127   1606           00365                 BSF             PB,4
+0128   206C           00366                 CALL    RETARDO
+0129   1206           00367                 BCF             PB,4
+012A   2905           00368                 GOTO    CRONOM  
+                      00369 
+MPASM  5.50                      RELOJ24H.ASM   6-15-2023  19:03:24         PAGE  8
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+012B   1819           00370 COMPINI BTFSC   NICOLA,0
+012C   2916           00371                 GOTO    CRONOM2
+012D   1419           00372                 BSF             NICOLA,0
+012E   1C28           00373                 BTFSS   INICRO,0
+012F   2933           00374                 GOTO    CRON
+0130   2931           00375                 GOTO    CROFF
+                      00376 
+0131   1028           00377 CROFF   BCF             INICRO,0
+0132   2916           00378                 GOTO    CRONOM2
+                      00379 
+0133   1428           00380 CRON    BSF             INICRO,0
+0134   2916           00381                 GOTO    CRONOM2
+                      00382                 
+                      00383         
+0135   1885           00384 CMCS    BTFSC   PA,1
+0136   293B           00385                 GOTO    RETUR
+0137   2912           00386                 GOTO    N10
+                      00387 
+0138   1A05           00388 CMCRM   BTFSC   PA,4
+0139   2942           00389                 GOTO    RETUR2
+013A   2912           00390                 GOTO    N10
+                      00391 
+013B   03A0           00392 RETUR   DECF    MODO,1
+013C   01A9           00393                 CLRF    SUNICR
+013D   01B0           00394                 CLRF    SDECCR
+013E   01B1           00395                 CLRF    MUNICR
+013F   01B2           00396                 CLRF    MDECCR
+0140   1028           00397                 BCF             INICRO,0
+0141   2912           00398                 GOTO    N10
+                      00399 
+0142   0AA0           00400 RETUR2  INCF    MODO,1
+0143   01A9           00401                 CLRF    SUNICR
+0144   01B0           00402                 CLRF    SDECCR
+0145   01B1           00403                 CLRF    MUNICR
+0146   01B2           00404                 CLRF    MDECCR
+0147   1028           00405                 BCF             INICRO,0
+0148   2912           00406                 GOTO    N10
+                      00407 
+0149   1819           00408 CLRCRO  BTFSC   NICOLA,0
+014A   2916           00409                 GOTO    CRONOM2
+014B   1419           00410                 BSF             NICOLA,0
+014C   01A9           00411                 CLRF    SUNICR
+014D   01B0           00412                 CLRF    SDECCR
+014E   01B1           00413                 CLRF    MUNICR
+014F   01B2           00414                 CLRF    MDECCR
+0150   1028           00415                 BCF             INICRO,0
+0151   3064           00416                 MOVLW   D'100'
+0152   00A7           00417                 MOVWF   VARCRO  
+0153   2916           00418                 GOTO    CRONOM2
+                      00419 
+                      00420 
+0154   01A1           00421 REJMUNI CLRF    CONTROL
+0155   01B9           00422                 CLRF    ZONAH
+MPASM  5.50                      RELOJ24H.ASM   6-15-2023  19:03:24         PAGE  9
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+Message[305]: Using default destination of 1 (file).
+0156   0AB9           00423                 INCF    ZONAH
+                      00424         
+                      00425 
+0157   1C05           00426 RELMUN  BTFSS   PA,0
+0158   1439           00427                 BSF             ZONAH,0
+0159   1C05           00428                 BTFSS   PA,0
+015A   10B9           00429                 BCF             ZONAH,1
+015B   1C05           00430                 BTFSS   PA,0
+015C   1139           00431                 BCF             ZONAH,2
+015D   1C85           00432                 BTFSS   PA,1
+015E   14B9           00433                 BSF             ZONAH,1
+015F   1C85           00434                 BTFSS   PA,1
+0160   1039           00435                 BCF             ZONAH,0
+0161   1C85           00436                 BTFSS   PA,1
+0162   1139           00437                 BCF             ZONAH,2
+0163   1D85           00438                 BTFSS   PA,3
+0164   1539           00439                 BSF             ZONAH,2
+0165   1D85           00440                 BTFSS   PA,3
+0166   10B9           00441                 BCF             ZONAH,1
+0167   1D85           00442                 BTFSS   PA,3
+0168   1039           00443                 BCF             ZONAH,0
+0169   1E05           00444                 BTFSS   PA,4
+016A   1421           00445                 BSF             CONTROL,0
+016B   1821           00446                 BTFSC   CONTROL,0
+016C   299B           00447                 GOTO    CMRMC
+                      00448                 
+016D   1D20           00449 N21             BTFSS   MODO,2
+016E   2903           00450                 GOTO    CRONOMI
+                      00451 
+016F   0813           00452                 MOVF    MINUNI,0
+0170   00B5           00453                 MOVWF   MINUNIZ
+0171   0814           00454                 MOVF    MINDEC,0
+0172   00B6           00455                 MOVWF   MINDECZ
+0173   0815           00456                 MOVF    HORUNI,0
+0174   00B7           00457                 MOVWF   HORUNIZ
+0175   0816           00458                 MOVF    HORDEC,0
+0176   00B8           00459                 MOVWF   HORDECZ
+                      00460 
+0177   1839           00461                 BTFSC   ZONAH,0
+0178   2992           00462                 GOTO    MADRID
+0179   18B9           00463                 BTFSC   ZONAH,1
+017A   2995           00464                 GOTO    CHINA
+017B   1939           00465                 BTFSC   ZONAH,2
+017C   2998           00466                 GOTO    LONDRES
+                      00467                 
+017D   0835           00468 IMPH    MOVF    MINUNIZ,0
+017E   0086           00469                 MOVWF   PB
+017F   1786           00470                 BSF             PB,7
+0180   206C           00471                 CALL    RETARDO
+0181   1386           00472                 BCF             PB,7
+0182   0836           00473                 MOVF    MINDECZ,0
+0183   0086           00474                 MOVWF   PB
+MPASM  5.50                      RELOJ24H.ASM   6-15-2023  19:03:24         PAGE 10
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0184   1706           00475                 BSF             PB,6
+0185   206C           00476                 CALL    RETARDO
+0186   1306           00477                 BCF             PB,6
+0187   0837           00478                 MOVF    HORUNIZ,0
+0188   0086           00479                 MOVWF   PB
+0189   1686           00480                 BSF             PB,5
+018A   206C           00481                 CALL    RETARDO
+018B   1286           00482                 BCF             PB,5
+018C   0838           00483                 MOVF    HORDECZ,0
+018D   0086           00484                 MOVWF   PB
+018E   1606           00485                 BSF             PB,4
+018F   206C           00486                 CALL    RETARDO
+0190   1206           00487                 BCF             PB,4
+0191   2957           00488                 GOTO    RELMUN
+                      00489 
+                      00490 
+0192   3006           00491 MADRID  MOVLW   D'6'
+0193   00C0           00492                 MOVWF   CONTZ
+0194   299E           00493                 GOTO    HORAZ
+                      00494         
+                      00495 
+0195   300C           00496 CHINA   MOVLW   D'12'
+0196   00C0           00497                 MOVWF   CONTZ
+0197   299E           00498                 GOTO    HORAZ
+                      00499 
+                      00500 
+0198   3005           00501 LONDRES MOVLW   D'5'
+0199   00C0           00502                 MOVWF   CONTZ
+019A   299E           00503                 GOTO    HORAZ
+                      00504 
+                      00505 
+                      00506 
+019B   1A05           00507 CMRMC   BTFSC   PA,4
+019C   03A0           00508                 DECF    MODO,1
+019D   296D           00509                 GOTO    N21
+                      00510 
+                      00511 
+019E                  00512 HORAZ   
+019E   0AB7           00513                         INCF    HORUNIZ,1       
+019F   0837           00514                         MOVF    HORUNIZ,0
+01A0   3C0A           00515                         SUBLW   D'10'
+01A1   1D03           00516                         BTFSS   STATUS,2
+01A2   29A4           00517                         GOTO    MARIAPAOLAZ
+01A3   29AD           00518                         GOTO    ALFREDOZ
+01A4   0837           00519 MARIAPAOLAZ     MOVF    HORUNIZ,0
+01A5   3C04           00520                         SUBLW   D'4'
+01A6   1D03           00521                         BTFSS   STATUS,2
+01A7   29AF           00522                         GOTO    RETZ
+01A8   1CB8           00523                         BTFSS   HORDECZ,1
+01A9   29AF           00524                         GOTO    RETZ
+01AA   01B8           00525                         CLRF    HORDECZ
+01AB   01B7           00526                         CLRF    HORUNIZ
+01AC   29AF           00527                         GOTO    RETZ                            
+MPASM  5.50                      RELOJ24H.ASM   6-15-2023  19:03:24         PAGE 11
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+01AD   01B7           00528 ALFREDOZ        CLRF    HORUNIZ
+01AE   0AB8           00529                         INCF    HORDECZ,1
+                      00530 
+01AF   0BC0           00531 RETZ            DECFSZ  CONTZ,1
+01B0   299E           00532                         GOTO    HORAZ
+01B1   297D           00533                         GOTO    IMPH
+                      00534 ;METODOS DE FECHA
+                      00535 
+                      00536 
+01B2   0825           00537 INCDIA          MOVF    MESDEC,0
+01B3   3C01           00538                         SUBLW   D'1'
+01B4   1D03           00539                         BTFSS   STATUS,2
+01B5   29B7           00540                         GOTO    INC0
+01B6   29DB           00541                         GOTO    INC1
+01B7   0824           00542 INC0            MOVF    MESUNI,0
+01B8   3C01           00543                         SUBLW   D'1'
+01B9   1903           00544                         BTFSC   STATUS,2
+01BA   29EA           00545                         GOTO    DIA31           
+01BB   0824           00546                         MOVF    MESUNI,0
+01BC   3C02           00547                         SUBLW   D'2'
+01BD   1903           00548                         BTFSC   STATUS,2
+01BE   29EC           00549                         GOTO    DIA28
+01BF   0824           00550                         MOVF    MESUNI,0
+01C0   3C03           00551                         SUBLW   D'3'
+01C1   1903           00552                         BTFSC   STATUS,2
+01C2   29EA           00553                         GOTO    DIA31
+01C3   0824           00554                         MOVF    MESUNI,0
+01C4   3C04           00555                         SUBLW   D'4'
+01C5   1903           00556                         BTFSC   STATUS,2
+01C6   29E8           00557                         GOTO    DIA30
+01C7   0824           00558                         MOVF    MESUNI,0
+01C8   3C05           00559                         SUBLW   D'5'
+01C9   1903           00560                         BTFSC   STATUS,2
+01CA   29EA           00561                         GOTO    DIA31
+01CB   0824           00562                         MOVF    MESUNI,0
+01CC   3C06           00563                         SUBLW   D'6'
+01CD   1903           00564                         BTFSC   STATUS,2
+01CE   29E8           00565                         GOTO    DIA30
+01CF   0824           00566                         MOVF    MESUNI,0
+01D0   3C07           00567                         SUBLW   D'7'
+01D1   1903           00568                         BTFSC   STATUS,2
+01D2   29EA           00569                         GOTO    DIA31
+01D3   0824           00570                         MOVF    MESUNI,0
+01D4   3C08           00571                         SUBLW   D'8'
+01D5   1903           00572                         BTFSC   STATUS,2
+01D6   29EA           00573                         GOTO    DIA31
+01D7   0824           00574                         MOVF    MESUNI,0
+01D8   3C09           00575                         SUBLW   D'9'
+01D9   1903           00576                         BTFSC   STATUS,2
+01DA   29E8           00577                         GOTO    DIA30
+01DB   0824           00578 INC1            MOVF    MESUNI,0
+01DC   3C00           00579                         SUBLW   D'0'
+01DD   1903           00580                         BTFSC   STATUS,2
+MPASM  5.50                      RELOJ24H.ASM   6-15-2023  19:03:24         PAGE 12
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+01DE   29EA           00581                         GOTO    DIA31
+01DF   0824           00582                         MOVF    MESUNI,0
+01E0   3C01           00583                         SUBLW   D'1'
+01E1   1903           00584                         BTFSC   STATUS,2
+01E2   29E8           00585                         GOTO    DIA30
+01E3   0824           00586                         MOVF    MESUNI,0
+01E4   3C02           00587                         SUBLW   D'2'
+01E5   1903           00588                         BTFSC   STATUS,2
+01E6   29EA           00589                         GOTO    DIA31
+                      00590 
+01E7   0008           00591 RET                     RETURN
+                      00592 
+01E8   21EE           00593 DIA30           CALL    INCDIA30
+01E9   29E7           00594                         GOTO    RET
+                      00595 
+01EA   221C           00596 DIA31           CALL    INCDIA31
+01EB   29E7           00597                         GOTO    RET
+                      00598 
+01EC   2205           00599 DIA28           CALL    INCDIA28
+01ED   29E7           00600                         GOTO    RET
+                      00601 
+                      00602 
+                      00603 
+01EE   1026           00604 INCDIA30        BCF             CAMBIO,0
+01EF   0AA2           00605                         INCF    DIAUNI,1        
+01F0   0822           00606                         MOVF    DIAUNI,0
+01F1   3C0A           00607                         SUBLW   D'10'
+01F2   1D03           00608                         BTFSS   STATUS,2
+01F3   29F5           00609                         GOTO    CDU
+01F4   2A02           00610                         GOTO    PDD
+01F5   0822           00611 CDU                     MOVF    DIAUNI,0
+01F6   3C01           00612                         SUBLW   D'1'
+01F7   1D03           00613                         BTFSS   STATUS,2
+01F8   0008           00614                         RETURN
+01F9   0823           00615                         MOVF    DIADEC,0
+01FA   3C03           00616                         SUBLW   D'3'
+01FB   1D03           00617                         BTFSS   STATUS,2
+01FC   0008           00618                         RETURN
+01FD   01A3           00619                         CLRF    DIADEC
+01FE   01A2           00620                         CLRF    DIAUNI
+01FF   0AA2           00621                         INCF    DIAUNI,1
+0200   1426           00622                         BSF             CAMBIO,0
+0201   0008           00623                         RETURN                          
+0202   01A2           00624 PDD                     CLRF    DIAUNI
+0203   0AA3           00625                         INCF    DIADEC,1
+0204   0008           00626                         RETURN
+                      00627 
+                      00628 
+0205   1026           00629 INCDIA28        BCF             CAMBIO,0
+0206   0AA2           00630                         INCF    DIAUNI,1        
+0207   0822           00631                         MOVF    DIAUNI,0
+0208   3C0A           00632                         SUBLW   D'10'
+0209   1D03           00633                         BTFSS   STATUS,2
+MPASM  5.50                      RELOJ24H.ASM   6-15-2023  19:03:24         PAGE 13
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+020A   2A0C           00634                         GOTO    CDU3
+020B   2A19           00635                         GOTO    PDD3
+020C   0822           00636 CDU3            MOVF    DIAUNI,0
+020D   3C09           00637                         SUBLW   D'9'
+020E   1D03           00638                         BTFSS   STATUS,2
+020F   0008           00639                         RETURN
+0210   0823           00640                         MOVF    DIADEC,0
+0211   3C02           00641                         SUBLW   D'2'
+0212   1D03           00642                         BTFSS   STATUS,2
+0213   0008           00643                         RETURN
+0214   01A3           00644                         CLRF    DIADEC
+0215   01A2           00645                         CLRF    DIAUNI
+0216   0AA2           00646                         INCF    DIAUNI,1
+0217   1426           00647                         BSF             CAMBIO,0
+0218   0008           00648                         RETURN                          
+0219   01A2           00649 PDD3            CLRF    DIAUNI
+021A   0AA3           00650                         INCF    DIADEC,1
+021B   0008           00651                         RETURN
+                      00652 
+                      00653 
+                      00654 
+                      00655 
+021C   1026           00656 INCDIA31        BCF             CAMBIO,0
+021D   0AA2           00657                         INCF    DIAUNI,1        
+021E   0822           00658                         MOVF    DIAUNI,0
+021F   3C0A           00659                         SUBLW   D'10'
+0220   1D03           00660                         BTFSS   STATUS,2
+0221   2A23           00661                         GOTO    CDU2
+0222   2A30           00662                         GOTO    PDD2
+0223   0822           00663 CDU2            MOVF    DIAUNI,0
+0224   3C02           00664                         SUBLW   D'2'
+0225   1D03           00665                         BTFSS   STATUS,2
+0226   0008           00666                         RETURN
+0227   0823           00667                         MOVF    DIADEC,0
+0228   3C03           00668                         SUBLW   D'3'
+0229   1D03           00669                         BTFSS   STATUS,2
+022A   0008           00670                         RETURN
+022B   01A3           00671                         CLRF    DIADEC
+022C   01A2           00672                         CLRF    DIAUNI
+022D   0AA2           00673                         INCF    DIAUNI,1
+022E   1426           00674                         BSF             CAMBIO,0
+022F   0008           00675                         RETURN                          
+0230   01A2           00676 PDD2            CLRF    DIAUNI
+0231   0AA3           00677                         INCF    DIADEC,1
+0232   0008           00678                         RETURN
+                      00679 
+                      00680 
+0233   0AA4           00681 INCMES          INCF    MESUNI,1        
+0234   0824           00682                         MOVF    MESUNI,0
+0235   3C0A           00683                         SUBLW   D'10'
+0236   1D03           00684                         BTFSS   STATUS,2
+0237   2A39           00685                         GOTO    CDU4
+0238   2A45           00686                         GOTO    PDD4
+MPASM  5.50                      RELOJ24H.ASM   6-15-2023  19:03:24         PAGE 14
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0239   0824           00687 CDU4            MOVF    MESUNI,0
+023A   3C03           00688                         SUBLW   D'3'
+023B   1D03           00689                         BTFSS   STATUS,2
+023C   0008           00690                         RETURN
+023D   0825           00691                         MOVF    MESDEC,0
+023E   3C01           00692                         SUBLW   D'1'
+023F   1D03           00693                         BTFSS   STATUS,2
+0240   0008           00694                         RETURN
+0241   01A5           00695                         CLRF    MESDEC
+0242   01A4           00696                         CLRF    MESUNI
+0243   0AA4           00697                         INCF    MESUNI,1
+0244   0008           00698                         RETURN                          
+0245   01A4           00699 PDD4            CLRF    MESUNI
+0246   0AA5           00700                         INCF    MESDEC,1
+0247   0008           00701                         RETURN
+                      00702 
+                      00703 
+                      00704 
+                      00705 
+                      00706         
+0004                  00707         ORG     4                       ;VECTOR DE INTERRUPCION
+0004   2A67           00708         GOTO    INTER           ;SALTA A LA RUTINA A EJECUTAR CUANDO LLEGA LA INTERRUPCION
+                      00709 
+0267                  00710 INTER   ORG     267
+0267   0B90           00711         DECFSZ  VAR,1           ;DECREMENTA EN 1 LA VARIABLE DE CONTEO (VAR) Y SI EL RESULTADO ES CERO S
+                            ALTA UNA LINEA
+0268   2A6A           00712         GOTO    N3                      ;EL RESULTADO DE LA VARIABLE ES DISTINTO DE CERO
+0269   2A90           00713         GOTO    SEG                     ;EL RESULTADO DE LA RESTA ES CERO Y SI ES ASI ACABA DE PASAR UN 
+                            SEGUNDO
+026A   1828           00714 N3      BTFSC   INICRO,0
+026B   2A71           00715                 GOTO    INCCRO
+026C   30D9           00716 N5              MOVLW   d'217'          ;MOVIENDO EL VALOR DE 217 A W
+026D   0081           00717         MOVWF   TMR0            ;PRECARGANDO EL TIMER EN 217
+026E   110B           00718         BCF     INTCON,2        ;APAGANDO LA BANDERA DE LA INTERRUPCION DE DESBORDAMIENTO DEL TIMER
+026F   0818           00719         MOVF    JOYCE,0
+0270   0009           00720         RETFIE                  ;SALIENDO DE LA INTERRUPCION
+                      00721 
+0271   0BA7           00722 INCCRO  DECFSZ  VARCRO,1
+0272   2A6C           00723                 GOTO    N5
+0273   2A74           00724                 GOTO    SEGCRO
+                      00725 
+                      00726 
+0274   0AA9           00727 SEGCRO  INCF    SUNICR,1        ;SEGUNI=SEGUNI+1
+0275   0829           00728                 MOVF    SUNICR,0        ;W=SEGUNI
+0276   3C0A           00729                 SUBLW   D'10'           ;W=10-W
+0277   1D03           00730                 BTFSS   STATUS,2        ;SI EL FLAG ES 1 EL RESULTADO FUE 0 Y SEGUNI=10
+0278   2A8D           00731                 GOTO    N4
+0279   01A9           00732                 CLRF    SUNICR
+027A   0AB0           00733                 INCF    SDECCR,1        ;SEGDEC=SEGDEC+1
+027B   0830           00734                 MOVF    SDECCR,0        ;W=SEGDEC
+027C   3C06           00735                 SUBLW   D'6'
+027D   1D03           00736                 BTFSS   STATUS,2
+027E   2A8D           00737                 GOTO    N4
+MPASM  5.50                      RELOJ24H.ASM   6-15-2023  19:03:24         PAGE 15
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+027F   01B0           00738                 CLRF    SDECCR
+0280   0AB1           00739                 INCF    MUNICR,1
+0281   0831           00740                 MOVF    MUNICR,0
+0282   3C0A           00741                 SUBLW   D'10'
+0283   1D03           00742                 BTFSS   STATUS,2
+0284   2A8D           00743                 GOTO    N4
+0285   01B1           00744                 CLRF    MUNICR
+0286   0AB2           00745                 INCF    MDECCR,1
+0287   0832           00746                 MOVF    MDECCR,0
+0288   3C06           00747                 SUBLW   D'6'
+0289   1D03           00748                 BTFSS   STATUS,2
+028A   2A8D           00749                 GOTO    N4
+028B   01B2           00750                 CLRF    MDECCR
+028C   2A8D           00751                 GOTO    N4
+                      00752 
+028D   3064           00753 N4              MOVLW   D'100'          ;MOVIENDO EL VALOR DE 100 A W
+028E   00A7           00754         MOVWF   VARCRO                  ;CARGANDO LA VARIABLE DE CONTEO A 100
+028F   2A6A           00755         GOTO    N3      
+                      00756 
+0290   1905           00757 SEG     BTFSC   PA,2            ;PREGUNTANDO SI EN BIT0 DEL PUERTO A ES CERO (SI ES CIERTO SALTA UNA LIN
+                            EA)
+0291   2A94           00758         GOTO    OFF                     ;COMO EL BIT0 ES 1 ENTONCES SALTAMOS A LA ETIQUETA OFF
+0292   1505           00759         BSF     PA,2            ;COMO EL BIT0 ERA 0 ENTONCES LO COLOCAMOS EN 1
+0293   2A95           00760         GOTO    SEG1                    ;SALTAMOS A LA ETIQUETA N2
+0294   1105           00761 OFF     BCF     PA,2            ;EN ESTA INSTRUCCION PONEMOS A 0 AL BIT0 DEL PUERTO A
+0295   0098           00762 SEG1    MOVWF   JOYCE
+0296   0A91           00763                 INCF    SEGUNI,1        ;SEGUNI=SEGUNI+1
+0297   0811           00764                 MOVF    SEGUNI,0        ;W=SEGUNI
+0298   3C0A           00765                 SUBLW   D'10'           ;W=10-W
+0299   1D03           00766                 BTFSS   STATUS,2        ;SI EL FLAG ES 1 EL RESULTADO FUE 0 Y SEGUNI=10
+029A   2AC7           00767                 GOTO    N2
+029B   0191           00768                 CLRF    SEGUNI
+029C   0A92           00769                 INCF    SEGDEC,1        ;SEGDEC=SEGDEC+1
+029D   0812           00770                 MOVF    SEGDEC,0        ;W=SEGDEC
+029E   3C06           00771                 SUBLW   D'6'
+029F   1D03           00772                 BTFSS   STATUS,2
+02A0   2AC7           00773                 GOTO    N2
+02A1   0192           00774                 CLRF    SEGDEC
+02A2   0A93           00775                 INCF    MINUNI,1
+02A3   0813           00776                 MOVF    MINUNI,0
+02A4   3C0A           00777                 SUBLW   D'10'
+02A5   1D03           00778                 BTFSS   STATUS,2
+02A6   2AC7           00779                 GOTO    N2
+02A7   0193           00780                 CLRF    MINUNI
+02A8   0A94           00781                 INCF    MINDEC,1
+02A9   0814           00782                 MOVF    MINDEC,0
+02AA   3C06           00783                 SUBLW   D'6'
+02AB   1D03           00784                 BTFSS   STATUS,2
+02AC   2AC7           00785                 GOTO    N2
+02AD   0194           00786                 CLRF    MINDEC
+02AE   0A95           00787                 INCF    HORUNI,1        
+02AF   0815           00788                 MOVF    HORUNI,0
+02B0   3C0A           00789                 SUBLW   D'10'
+MPASM  5.50                      RELOJ24H.ASM   6-15-2023  19:03:24         PAGE 16
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+02B1   1D03           00790                 BTFSS   STATUS,2
+02B2   2AB4           00791                 GOTO    GIAN
+02B3   2ABE           00792                 GOTO    DANIEL
+02B4   0815           00793 GIAN    MOVF    HORUNI,0
+02B5   3C04           00794                 SUBLW   D'4'
+02B6   1D03           00795                 BTFSS   STATUS,2
+02B7   2AC7           00796                 GOTO    N2
+02B8   1C96           00797                 BTFSS   HORDEC,1
+02B9   2AC7           00798                 GOTO    N2
+02BA   0196           00799                 CLRF    HORDEC
+02BB   0195           00800                 CLRF    HORUNI
+02BC   2AC1           00801                 GOTO    PASODIA
+02BD   2AC7           00802                 GOTO    N2                              
+02BE   0195           00803 DANIEL  CLRF    HORUNI
+02BF   0A96           00804                 INCF    HORDEC,1                
+02C0   2AC7           00805                 GOTO    N2
+02C1   21B2           00806 PASODIA CALL    INCDIA
+02C2   1826           00807                 BTFSC   CAMBIO,0
+02C3   2AC5           00808                 GOTO    PASOMES
+02C4   2AC7           00809                 GOTO    N2
+02C5   1026           00810 PASOMES BCF             CAMBIO,0
+02C6   2233           00811                 CALL    INCMES          
+02C7   3064           00812 N2              MOVLW   D'100'          ;MOVIENDO EL VALOR DE 100 A W
+02C8   0090           00813         MOVWF   VAR                     ;CARGANDO LA VARIABLE DE CONTEO A 100
+02C9   2A6A           00814         GOTO    N3                      ;SALTANDO A LA ETIQUETA N3
+                      00815 
+                      00816         END
+MPASM  5.50                      RELOJ24H.ASM   6-15-2023  19:03:24         PAGE 17
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+ALFREDO                           00000093
+ALFREDOZ                          000001AD
+ANDRES                            00000017
+CAMBIO                            00000026
+CDU                               000001F5
+CDU2                              00000223
+CDU3                              0000020C
+CDU4                              00000239
+CHINA                             00000195
+CLRCRO                            00000149
+CLRSEG                            000000FD
+CMCRM                             00000138
+CMCS                              00000135
+CMFH                              000000BE
+CMFS                              000000C1
+CMHF                              00000066
+CMHS                              00000069
+CMRMC                             0000019B
+CMSC                              000000F5
+CMSF                              000000F8
+CMSH                              000000F2
+COMPINI                           0000012B
+COMPMOD                           000000EF
+CONTROL                           00000021
+CONTROL2                          00000033
+CONTROL3                          00000034
+CONTZ                             00000040
+CROFF                             00000131
+CRON                              00000133
+CRONOM                            00000105
+CRONOM2                           00000116
+CRONOMI                           00000103
+DANIEL                            000002BE
+DIA                               000000C4
+DIA28                             000001EC
+DIA30                             000001E8
+DIA31                             000001EA
+DIADEC                            00000023
+DIAUNI                            00000022
+FECHA                             00000098
+FECHA2                            000000A9
+FECHAI                            00000096
+GABRIELA                          0000006E
+GIAN                              000002B4
+HORAS                             00000081
+HORAZ                             0000019E
+HORDEC                            00000016
+HORDECZ                           00000038
+HORUNI                            00000015
+HORUNIZ                           00000037
+IMPH                              0000017D
+INC0                              000001B7
+INC1                              000001DB
+MPASM  5.50                      RELOJ24H.ASM   6-15-2023  19:03:24         PAGE 18
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+INCCRO                            00000271
+INCDIA                            000001B2
+INCDIA28                          00000205
+INCDIA30                          000001EE
+INCDIA31                          0000021C
+INCMES                            00000233
+INICIO                            00000010
+INICRO                            00000028
+INTCON                            0000000B
+INTER                             00000267
+JOYCE                             00000018
+LONDRES                           00000198
+MADRID                            00000192
+MARIAPAOLA                        0000008A
+MARIAPAOLAZ                       000001A4
+MDECCR                            00000032
+MES                               000000C9
+MESDEC                            00000025
+MESUNI                            00000024
+MINDEC                            00000014
+MINDECZ                           00000036
+MINUNI                            00000013
+MINUNIZ                           00000035
+MINUTOS                           00000071
+MODO                              00000020
+MUNICR                            00000031
+N1                                00000023
+N10                               00000112
+N11                               000000E0
+N2                                000002C7
+N21                               0000016D
+N3                                0000026A
+N4                                0000028D
+N5                                0000026C
+N8                                0000004C
+N9                                000000A5
+NICOLA                            00000019
+OFF                               00000294
+OP                                00000001
+PA                                00000005
+PASODIA                           000002C1
+PASOMES                           000002C5
+PB                                00000006
+PDD                               00000202
+PDD2                              00000230
+PDD3                              00000219
+PDD4                              00000245
+REJMUNI                           00000154
+RELMUN                            00000157
+RET                               000001E7
+RETARDO                           0000006C
+RETUR                             0000013B
+RETUR2                            00000142
+MPASM  5.50                      RELOJ24H.ASM   6-15-2023  19:03:24         PAGE 19
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+RETZ                              000001AF
+SAMUEL                            00000040
+SAMUELI                           0000003E
+SANDRO                            00000051
+SDECCR                            00000030
+SEG                               00000290
+SEG1                              00000295
+SEGCRO                            00000274
+SEGDEC                            00000012
+SEGUI                             000000CE
+SEGUN                             000000D1
+SEGUN2                            000000E4
+SEGUNI                            00000011
+STATUS                            00000003
+SUNICR                            00000029
+TMR0                              00000001
+TRISA                             00000005
+TRISB                             00000006
+VAR                               00000010
+VARCRO                            00000027
+ZONAH                             00000039
+__16F84A                          00000001
+
+
+MEMORY USAGE MAP ('X' = Used,  '-' = Unused)
+
+0000 : X---X----------- XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0040 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0080 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+00C0 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0100 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0140 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0180 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+01C0 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0200 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0240 : XXXXXXXX-------- ---------------- -------XXXXXXXXX XXXXXXXXXXXXXXXX
+0280 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+02C0 : XXXXXXXXXX------ ---------------- ---------------- ----------------
+
+All other memory blocks unused.
+
+Program Memory Words Used:   669
+Program Memory Words Free:   355
+
+
+Errors   :     0
+Warnings :     0 reported,     0 suppressed
+Messages :     1 reported,     0 suppressed
+
+
